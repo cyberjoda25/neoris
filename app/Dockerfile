@@ -5,13 +5,13 @@ FROM python:3.8-slim
 WORKDIR /app
 
 # Copia el archivo de requisitos
-COPY requirements.txt .
+COPY app/requirements.txt /app/requirements.txt
 
 # Instala las dependencias
-RUN pip install --no-cache-dir -r app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el contenido de la aplicación
-COPY . .
+COPY app/ /app
 
 # Expone el puerto en el que correrá la aplicación
 EXPOSE 5000
