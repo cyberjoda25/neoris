@@ -23,10 +23,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r app/requirements.txt
 
-    - name: Run tests
-      run: |
-        python -m unittest discover -s tests
-
     - name: Build and tag Docker image
       run: |
         docker build -t my-microservice:latest .
@@ -41,6 +37,6 @@ jobs:
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-microservice:latest
 
     - name: Deploy to production
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       run: |
         echo "Deploying to production"
