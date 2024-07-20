@@ -25,7 +25,7 @@ jobs:
 
     - name: Build and tag application Docker image
       run: |
-        docker build -t my-microservice:latest -f Dockerfile .
+        docker build -t my-microservice:latest -f app/Dockerfile .
         docker tag my-microservice:latest ${{ secrets.DOCKERHUB_USERNAME }}/my-microservice:latest
 
     - name: Build and tag Nginx Docker image
