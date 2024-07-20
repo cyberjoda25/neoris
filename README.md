@@ -54,4 +54,4 @@ DOCKER
 2) Asegúrate de que Docker y Docker Compose están instalados y corriendo en tu máquina.
 3) docker-compose up --build
 
-Esto construirá las imágenes de Docker y levantará los servicios definidos en tu archivo docker-compose.yml
+Esto construirá las imágenes de Docker y levantará los servicios definidos en tu archivo docker-compose.yml.
