@@ -23,20 +23,30 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r app/requirements.txt
 
-    - name: Build and tag Docker image
+    - name: Build and tag application Docker image
       run: |
-        docker build -t my-microservice:latest .
+        docker build -t my-microservice:latest -f Dockerfile .
         docker tag my-microservice:latest ${{ secrets.DOCKERHUB_USERNAME }}/my-microservice:latest
+
+    - name: Build and tag Nginx Docker image
+      run: |
+        docker build -t my-nginx:latest -f nginx/Dockerfile nginx
+        docker tag my-nginx:latest ${{ secrets.DOCKERHUB_USERNAME }}/my-nginx:latest
 
     - name: Login to DockerHub
       run: |
         echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-    - name: Push Docker image to DockerHub
+    - name: Push application Docker image to DockerHub
       run: |
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-microservice:latest
+
+    - name: Push Nginx Docker image to DockerHub
+      run: |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-nginx:latest
 
     - name: Deploy to production
       if: github.ref == 'refs/heads/main'
       run: |
         echo "Deploying to production"
+
